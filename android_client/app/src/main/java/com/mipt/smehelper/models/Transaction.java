@@ -24,6 +24,9 @@ public class Transaction {
     @JsonProperty("officialComment")
     private String officialComment;
 
+    @JsonProperty("date")
+    private String date;
+
     // May be remove se/deserialize
     @JsonDeserialize(using = NumberDeserializers.NumberDeserializer.class)
     @JsonSerialize(using = ToStringSerializer.class)
@@ -34,47 +37,27 @@ public class Transaction {
         return isIncome;
     }
 
-    public void setIncome(boolean income) {
-        isIncome = income;
-    }
-
     public double getAmount() {
         return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 
     public String getPurpose() {
         return purpose;
     }
 
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
-
     public String getRealComment() {
         return realComment;
-    }
-
-    public void setRealComment(String realComment) {
-        this.realComment = realComment;
     }
 
     public String getOfficialComment() {
         return officialComment;
     }
-
-    public void setOfficialComment(String officialComment) {
-        this.officialComment = officialComment;
+    
+    public String getDate() {
+        return date;
     }
 
     public Integer getUserId() {
         return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 }

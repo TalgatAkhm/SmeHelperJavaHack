@@ -11,3 +11,7 @@
 /build
 /captures
 .externalNativeBuild
+/gradle.properties
+/build.gradle
+/settings.gradle
+/gradle/wrapper/gradle-wrapper.properties

@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">SMEHelper</string>
+    <string name="user_name">Как к вам обращаться</string>
+    <string name="next_splash_screen">Продолжить</string>
+    <string name="city_hint">Ваш город</string>
+    <string name="start_button">Начать</string>
+    <string-array name="jobs">
+        <item>Фермер</item>
+        <item>Фрилансер</item>
+        <item>Программист</item>
+    </string-array>
+
+    <string-array name="nalogs">
+        <item>УСН 6%</item>
+        <item>УСН 13%</item>
+        <item>ЕВПД</item>
+    </string-array>
 </resources>

@@ -1,0 +1,10 @@
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/model/Notification.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/dao/IUserDao.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/LoginServlet.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/RegisterServlet.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/model/UserOrg.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/dao/INotificationDao.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/TransactionFilter.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/model/TestModel.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/TestServlet.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/model/Document.java

@@ -1,4 +1,4 @@
-package com.javahack.smehelper.security;
+package com.javahack.smehelper.request_handler;
 
 import org.springframework.transaction.annotation.Transactional;
 

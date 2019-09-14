@@ -1,4 +1,4 @@
-package com.javahack.smehelper;
+package com.javahack.smehelper.request_handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +14,7 @@ public class TestServlet implements HttpRequestHandler {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         response.getWriter().write("OK");
     }
 }

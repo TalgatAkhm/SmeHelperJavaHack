@@ -70,4 +70,6 @@
     <bean name="testServlet" class="com.javahack.smehelper.request_handler.TestServlet" />
     <bean name="registerServlet" class="com.javahack.smehelper.request_handler.RegisterServlet" />
     <bean name="loginServlet" class="com.javahack.smehelper.request_handler.LoginServlet" />
+    <bean name="notificationsServlet" class="com.javahack.smehelper.request_handler.NotificationsServlet" />
+    <bean name="notificationsLoaderServlet" class="com.javahack.smehelper.request_handler.NotificationLoaderServlet" />
 </beans>

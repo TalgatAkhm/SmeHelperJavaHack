@@ -1,12 +1,10 @@
 package com.javahack.smehelper.request_handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.javahack.smehelper.dao.IUserDao;
-import com.javahack.smehelper.model.UserOrg;
-import com.javahack.smehelper.model.UserOrgAndJobs;
+import com.javahack.smehelper.dao.INotificationDao;
+import com.javahack.smehelper.model.Notification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.HttpRequestHandler;
 
 import javax.annotation.Resource;
@@ -15,12 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 
-public class LoginServlet implements HttpRequestHandler{
-
+public class NotificationLoaderServlet implements HttpRequestHandler {
     @Resource
-    private IUserDao userDao;
+    private INotificationDao dao;
+
     private static final Logger LOG = LoggerFactory.getLogger(TestServlet.class);
 
     @Override
@@ -33,16 +30,12 @@ public class LoginServlet implements HttpRequestHandler{
             buffer.append(line);
         }
 
-        String name = buffer.toString();
-        LOG.info("login user: " + name);
-
-        List<UserOrg> users = userDao.getUserByName(name);
+        String json = buffer.toString();
+        LOG.info("Get notifications by date: " + json);
 
         ObjectMapper mapper = new ObjectMapper();
-        // TODO: find all job types
-//        mapper.writeValueAsString(new UserOrgAndJobs(users.get(0)));
-
-        LOG.info("login is successful");
-        httpServletResponse.getWriter().write(mapper.writeValueAsString(users.get(0)));
+        Notification notification = mapper.readValue(json, Notification.class);
+        dao.create(notification);
+        LOG.info("Notification created");
     }
 }

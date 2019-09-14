@@ -3,6 +3,8 @@ package com.javahack.smehelper.request_handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javahack.smehelper.dao.IUserDao;
 import com.javahack.smehelper.model.UserOrg;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.HttpRequestHandler;
 
 import javax.annotation.Resource;
@@ -15,10 +17,12 @@ import java.io.IOException;
 public class RegisterServlet implements HttpRequestHandler {
 
     @Resource
-    IUserDao userDao;
+    private IUserDao userDao;
+    private static final Logger LOG = LoggerFactory.getLogger(TestServlet.class);
 
     @Override
     public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        LOG.info("Register new user");
         StringBuilder buffer = new StringBuilder();
         BufferedReader reader = httpServletRequest.getReader();
         String line;
@@ -33,7 +37,7 @@ public class RegisterServlet implements HttpRequestHandler {
 
         UserOrg userOrg = mapper.readValue(json, UserOrg.class);
         userDao.create(userOrg);
-        System.out.println(userOrg.getName());
+        LOG.info("Registration successful");
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
     }
 

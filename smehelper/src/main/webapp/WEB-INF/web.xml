@@ -66,4 +66,22 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>notificationsServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>notificationsServlet</servlet-name>
+        <url-pattern>/notifications</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>notificationsLoaderServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>notificationsLoaderServlet</servlet-name>
+        <url-pattern>/load_notif</url-pattern>
+    </servlet-mapping>
+
 </web-app>

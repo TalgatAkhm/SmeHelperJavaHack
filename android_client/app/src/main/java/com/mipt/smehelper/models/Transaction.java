@@ -29,4 +29,52 @@ public class Transaction {
     @JsonSerialize(using = ToStringSerializer.class)
     @JsonProperty("userId")
     private Integer userId;
+
+    public boolean isIncome() {
+        return isIncome;
+    }
+
+    public void setIncome(boolean income) {
+        isIncome = income;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public String getRealComment() {
+        return realComment;
+    }
+
+    public void setRealComment(String realComment) {
+        this.realComment = realComment;
+    }
+
+    public String getOfficialComment() {
+        return officialComment;
+    }
+
+    public void setOfficialComment(String officialComment) {
+        this.officialComment = officialComment;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 }

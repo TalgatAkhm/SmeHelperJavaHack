@@ -12,7 +12,7 @@ public class WorkerFetcher {
     private static ClientApiGet clientApiGet = NetworkService.getInstance().getClientApi();
 
     static List<User> fromAvito(User user) {
-        String token = "cea83367c2231a09e8dce54b70c2dc91";
+        String baseURL = "https://rest-app.net/api/ads?login=mikel1998@mail.ru&token=cea83367c2231a09e8dce54b70c2dc91&category_id=";
         List<User> users = new ArrayList<>();
 
         return users;

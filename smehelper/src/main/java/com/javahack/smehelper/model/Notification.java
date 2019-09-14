@@ -1,5 +1,7 @@
 package com.javahack.smehelper.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sf.autodao.PersistentEntity;
 
 import javax.persistence.Entity;
@@ -11,12 +13,19 @@ public class Notification implements PersistentEntity<Integer> {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Integer id;
 
+    @JsonProperty("isNalog")
     private Boolean isNalog;
+
+    @JsonProperty("title")
     private String title;
+
+    @JsonProperty("text")
     private String text;
 
+    @JsonProperty("date")
     private String date;
 
     public boolean isNalog() {

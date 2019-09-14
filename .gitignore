@@ -178,6 +178,8 @@ gen-external-apklibs
 ### Java ###
 *.class
 
+android_client/build.gradle
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

@@ -52,7 +52,7 @@ public class Transaction {
     public String getOfficialComment() {
         return officialComment;
     }
-    
+
     public String getDate() {
         return date;
     }

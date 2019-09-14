@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Custom behaviour for navigation bar in {@link com.asuscomm.vist_orlikov.vgsafety.ui.activities.MenuActivity}.
+ * Custom behaviour for navigation bar in {@link com.mipt.smehelper.ui.MainMenu}.
  * @author Mikhail Molchanov (molchanov.ma@phystech.edu).
  */
 public class BottomNavigationBehaviour<V extends View> extends CoordinatorLayout.Behavior<V> {

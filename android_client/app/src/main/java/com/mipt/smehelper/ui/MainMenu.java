@@ -5,11 +5,19 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.mipt.smehelper.R;
+import com.mipt.smehelper.models.User;
+import com.mipt.smehelper.network.ClientApiPost;
+import com.mipt.smehelper.network.NetworkService;
 import com.mipt.smehelper.ui.behaviour.BottomNavigationBehaviour;
 import com.mipt.smehelper.ui.utils.BottomNavigationViewHelper;
+
+import org.joda.time.DateTime;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

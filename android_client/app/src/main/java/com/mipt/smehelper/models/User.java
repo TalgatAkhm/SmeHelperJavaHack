@@ -46,4 +46,28 @@ public class User {
     public String getCity() {
         return city;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public void setRegDate(String regDate) {
+        this.regDate = regDate;
+    }
+
+    public void setSmallUSN(boolean smallUSN) {
+        isSmallUSN = smallUSN;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 }

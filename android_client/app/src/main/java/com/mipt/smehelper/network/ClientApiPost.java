@@ -8,6 +8,6 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface ClientApiPost {
-    @POST("/auth")
+    @POST("/register")
     Call<ResponseBody> authClient(@Body User user);
 }

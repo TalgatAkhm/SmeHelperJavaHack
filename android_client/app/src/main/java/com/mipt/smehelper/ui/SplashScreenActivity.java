@@ -22,11 +22,27 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import com.mipt.smehelper.EBMessages.UsersFetchedMessage;
 import com.mipt.smehelper.R;
+import com.mipt.smehelper.models.User;
+import com.mipt.smehelper.network.ClientApiGet;
+import com.mipt.smehelper.network.ClientApiPost;
+import com.mipt.smehelper.network.NetworkService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+import org.joda.time.DateTime;
+
+import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private final static String TAG = SplashScreenActivity.class.getName();
-
+    private static ClientApiPost clientApiPost = NetworkService.getInstance().getPostClientApi();
+    private static ClientApiGet clientApiGet = NetworkService.getInstance().getClientApi();
 
     private final static String PREFERENCES = "preferences";
     private final static String FIRST_APP = "is_first_enter";
@@ -69,15 +85,29 @@ public class SplashScreenActivity extends AppCompatActivity {
                 public void run() {
                     // send request to server
 
-                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startActivity();
+                    try {
+                        Response response = clientApiPost.getUser(userName).execute();
+                        User user = (User) response.body();
+
+                        if (user != null) {
+                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    startActivity();
+                                }
+                            }, 1000);
                         }
-                    }, 1000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }).start();
         }
+
+        EventBus.getDefault().register(this);
+        //TODO:: normal parameters
+        //WorkerFetcher.fromUs(null);
+        //WorkerFetcher.fromAvito(1488);
     }
 
     private void startActivity() {
@@ -111,12 +141,31 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 // send request to registration, use name
 
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity();
+                User user = new User();
+                user.setSmallUSN(true);
+                user.setAmount(Math.random() * 100000);
+                user.setCity(city);
+                user.setJob(job);
+                user.setName(name);
+                user.setRegDate(new DateTime().toString());
+
+                try {
+                    Response response = clientApiPost.authClient(user).execute();
+
+                    if (response.isSuccessful()) {
+                        Log.d(TAG, "Auth successful");
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity();
+                            }
+                        }, 1000);
+                    } else {
+                        Log.e(TAG, "Auth error for user " + String.valueOf(user));
                     }
-                }, 1000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
 
@@ -192,5 +241,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             container.removeView((ConstraintLayout)object);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void workersFetched(UsersFetchedMessage message) {
+        // Set workers
     }
 }

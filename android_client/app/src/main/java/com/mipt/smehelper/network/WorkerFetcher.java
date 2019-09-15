@@ -76,12 +76,12 @@ public class WorkerFetcher {
 
 
     // Run in new thread, register event
-    static void fromUs(final User user) {
+    public static void fromUs(final User user) {
         new Thread() {
             public void run() {
                 try {
-                    List<User> users = clientApiGet.getWorkers().execute().body();
-                    if (user != null) {
+                    List<User> users = clientApiGet.getWorkers(user.getName()).execute().body();
+                    if (users != null) {
                         Log.d(TAG, "users count fetched: " + String.valueOf(users.size()));
                         EventBus.getDefault().post(new UsersFetchedMessage(users));
                     } else {

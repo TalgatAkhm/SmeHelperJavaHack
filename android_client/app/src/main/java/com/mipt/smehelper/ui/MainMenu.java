@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.mipt.smehelper.EBMessages.UsersFetchedMessage;
 import com.mipt.smehelper.R;
+import com.mipt.smehelper.network.WorkerFetcher;
 import com.mipt.smehelper.ui.behaviour.BottomNavigationBehaviour;
 import com.mipt.smehelper.ui.fragments.ChatFragment;
 import com.mipt.smehelper.ui.fragments.CoworkersFragment;
@@ -19,6 +21,10 @@ import com.mipt.smehelper.ui.fragments.DocumentsFragment;
 import com.mipt.smehelper.ui.fragments.FeedFragment;
 import com.mipt.smehelper.ui.utils.BottomNavigationViewHelper;
 import com.mipt.smehelper.ui.views.NoSwipePager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,5 +109,4 @@ public class MainMenu extends AppCompatActivity implements
             return fragments.size();
         }
     }
-
 }

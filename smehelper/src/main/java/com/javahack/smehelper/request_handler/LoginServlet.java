@@ -30,9 +30,6 @@ public class LoginServlet implements HttpRequestHandler{
 
     @Override
     public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-//        userDao.delete(userDao.getUserByName("gh").get(0));
-//        userDao.delete(userDao.getUserByName("Членлось").get(0));
-
         StringBuilder buffer = new StringBuilder();
         BufferedReader reader = httpServletRequest.getReader();
         String line;
@@ -53,5 +50,6 @@ public class LoginServlet implements HttpRequestHandler{
         LOG.info("login is successful, its: " + users.get(0).getJob());
         httpServletResponse.setHeader("Content-Type", "application/json; charset=UTF-8");
         httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.getWriter().write(result);
     }
 }

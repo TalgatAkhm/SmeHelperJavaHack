@@ -28,12 +28,15 @@ public class DocumentCreatorServlet implements HttpRequestHandler{
             buffer.append(line);
         }
 
-        String json = buffer.toString();
+        String text = buffer.toString().replaceAll("\"", "");
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode parent = mapper.readTree(json);
-        String zakaz = parent.path("zakaz").asText();
-        String podr = parent.path("podr").asText();
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode parent = mapper.readTree(json);
+
+//        String zakaz = parent.path("zakaz").asText();
+//        String podr = parent.path("podr").asText();
+        String zakaz = text.split(",")[0];
+        String podr = text.split(",")[1];
 //        String zakaz = "zakaz";
 //        String podr = "podr";
         LOG.info("document: " + zakaz + " : " + podr);

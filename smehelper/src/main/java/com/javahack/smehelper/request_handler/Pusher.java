@@ -53,12 +53,13 @@ public class Pusher implements HttpRequestHandler {
         for(JobAndDependencies j:list){
             dao.create(j);
         }
-
-/*        UserOrg u = new UserOrg();
+/*        userDao.delete(userDao.getUserByName("admin").get(0));
+        UserOrg u = new UserOrg();
         u.setJob("Автомобили");
         u.setName("admin");
         u.setOrgName(null);
         u.setAmount(10000.0);
+        u.setSmallUSN(false);
         userDao.create(u);*/
     }
 }

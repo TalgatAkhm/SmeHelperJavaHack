@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -16,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.mipt.smehelper.R;
@@ -26,6 +30,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private final static String PREFERENCES = "preferences";
     private final static String FIRST_APP = "is_first_enter";
+    private final static String USER_NAME = "user_name";
 
     private SharedPreferences preferences;
 
@@ -44,19 +49,42 @@ public class SplashScreenActivity extends AppCompatActivity {
         preferences = getSharedPreferences(PREFERENCES, MODE_PRIVATE);
         boolean isFirstEnter = preferences.getBoolean(FIRST_APP, true);
 
-//        if (!isFirstEnter) {
-//            Log.d(TAG, "First enterence");
-//            setContentView(R.layout.activity_splash_screen);
-//            SharedPreferences.Editor editor = preferences.edit();
-//            editor.putBoolean(FIRST_APP, false);
-//            editor.apply();
-//            configurateSplashScreen();
-//        } else {
+        if (isFirstEnter) {
+            Log.d(TAG, "First enterence");
+            setContentView(R.layout.activity_splash_screen);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(FIRST_APP, false);
+            editor.apply();
+            configurateSplashScreen();
+        } else {
             Log.d(TAG, "Redirect to menu");
-            Intent intent = new Intent(this, MainMenu.class);
-            startActivity(intent);
-//        }
+            setContentView(R.layout.activity_splash_screen_logedin);
+            final String userName = preferences.getString(USER_NAME, null);
+            if (userName == null) {
+                Log.e(TAG, "Error getting loged in user");
+            }
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // send request to server
+
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity();
+                        }
+                    }, 1000);
+                }
+            }).start();
+        }
     }
+
+    private void startActivity() {
+        Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
+    }
+
 
     private void configurateSplashScreen() {
         viewPager = findViewById(R.id.splash_viewpager);
@@ -65,15 +93,33 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void surveyDone() {
-        String name = pagerAdapter.name.getEditText().getText().toString();
-        String nalog = pagerAdapter.nalog.getSelectedItem().toString();
-        String job = pagerAdapter.job.getSelectedItem().toString();
-        String city = pagerAdapter.city.getEditText().getText().toString();
+        final String name = pagerAdapter.name.getEditText().getText().toString();
+        final String nalog = pagerAdapter.nalog.getSelectedItem().toString();
+        final String job = pagerAdapter.job.getSelectedItem().toString();
+        final String city = pagerAdapter.city.getEditText().getText().toString();
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(USER_NAME, name);
+        editor.apply();
 
         Log.d(TAG, String.format("Survey results: %s, %s, %s, %s", name, nalog, job, city));
 
-        Intent intent = new Intent(this, MainMenu.class);
-        startActivity(intent);
+        pagerAdapter.applyBtn.setVisibility(View.INVISIBLE);
+        pagerAdapter.progressBar.setVisibility(View.VISIBLE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // send request to registration, use name
+
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity();
+                    }
+                }, 1000);
+            }
+        }).start();
+
     }
 
     class SplashViewPagerAdapter extends PagerAdapter {
@@ -84,6 +130,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         private Spinner job;
         private TextInputLayout city;
         private Spinner nalog;
+        private ProgressBar progressBar;
+        private Button applyBtn;
 
         public SplashViewPagerAdapter(Context context) {
             this.context = context;
@@ -107,6 +155,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 job = layout.findViewById(R.id.job_spinner);
                 city = layout.findViewById(R.id.city_input_layout);
                 nalog = layout.findViewById(R.id.nalog_spinner);
+                progressBar = layout.findViewById(R.id.progress_bar_survey);
 
                 ArrayAdapter<CharSequence> jobAdapter = ArrayAdapter.createFromResource(context, R.array.jobs, android.R.layout.simple_spinner_item);
                 jobAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -116,7 +165,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                 nalogAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 nalog.setAdapter(nalogAdapter);
 
-                layout.findViewById(R.id.next_btn).setOnClickListener(new View.OnClickListener() {
+                applyBtn = layout.findViewById(R.id.next_btn);
+                applyBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         SplashScreenActivity.this.surveyDone();

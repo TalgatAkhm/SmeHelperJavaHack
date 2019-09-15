@@ -5,6 +5,7 @@ com/javahack/smehelper/model/Notification.class
 com/javahack/smehelper/request_handler/JobAndDepLoaderServlet.class
 com/javahack/smehelper/request_handler/GetUsersByUserServlet.class
 com/javahack/smehelper/request_handler/Pusher.class
+com/javahack/smehelper/request_handler/DocumentCreatorServlet.class
 com/javahack/smehelper/request_handler/TestServlet.class
 com/javahack/smehelper/request_handler/NotificationsServlet.class
 com/javahack/smehelper/model/Document.class

@@ -77,4 +77,5 @@
     <bean name="getDepsServlet" class="com.javahack.smehelper.request_handler.GetDepsByUserServlet" />
     <bean name="getDepUsersServlet" class="com.javahack.smehelper.request_handler.GetUsersByUserServlet" />
     <bean name="pusher" class="com.javahack.smehelper.request_handler.Pusher" />
+    <bean name="doc" class="com.javahack.smehelper.request_handler.DocumentCreatorServlet" />
 </beans>

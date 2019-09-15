@@ -368,7 +368,20 @@
             <artifactId>joda-time-hibernate</artifactId>
             <version>1.4</version>
         </dependency>
-
+<!--
+        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.poi/poi &ndash;&gt;
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.0</version>
+        </dependency>-->
+<!--
+        &lt;!&ndash; https://mvnrepository.com/artifact/commons-logging/commons-logging &ndash;&gt;
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>-->
 
     </dependencies>
 	<build>

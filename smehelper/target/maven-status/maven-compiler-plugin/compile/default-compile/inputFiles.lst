@@ -8,6 +8,7 @@
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/model/Document.java
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/NotificationLoaderServlet.java
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/NotificationsServlet.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/DocumentCreatorServlet.java
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/dao/IJobDao.java
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/RegisterServlet.java
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/Pusher.java

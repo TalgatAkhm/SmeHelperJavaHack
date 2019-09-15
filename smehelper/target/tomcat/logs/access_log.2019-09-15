@@ -1,3 +1,1 @@
-10.91.6.70 - - [15/Sep/2019:07:20:36 +0300] "POST /login HTTP/1.1" 200 209 http-bio-8080-exec-1 287
-10.91.6.70 - - [15/Sep/2019:07:20:39 +0300] "POST /get_deps HTTP/1.1" 200 22 http-bio-8080-exec-2 35
-10.91.6.70 - - [15/Sep/2019:07:20:40 +0300] "POST /get_dep_users HTTP/1.1" 200 230 http-bio-8080-exec-3 32
+0:0:0:0:0:0:0:1 - - [15/Sep/2019:13:34:15 +0300] "GET /push HTTP/1.1" 200 - http-bio-8080-exec-1 181

@@ -1,7 +1,9 @@
 package com.javahack.smehelper.request_handler;
 
 import com.javahack.smehelper.dao.IJobDao;
+import com.javahack.smehelper.dao.IUserDao;
 import com.javahack.smehelper.model.JobAndDependencies;
+import com.javahack.smehelper.model.UserOrg;
 import org.springframework.web.HttpRequestHandler;
 
 import javax.annotation.Resource;
@@ -18,6 +20,9 @@ public class Pusher implements HttpRequestHandler {
 
     @Resource
     private IJobDao dao;
+
+    @Resource
+    private IUserDao userDao;
 
     @Override
     public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
@@ -48,5 +53,12 @@ public class Pusher implements HttpRequestHandler {
         for(JobAndDependencies j:list){
             dao.create(j);
         }
+
+/*        UserOrg u = new UserOrg();
+        u.setJob("Автомобили");
+        u.setName("admin");
+        u.setOrgName(null);
+        u.setAmount(10000.0);
+        userDao.create(u);*/
     }
 }

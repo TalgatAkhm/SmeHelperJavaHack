@@ -27,7 +27,6 @@ import com.mipt.smehelper.EBMessages.UsersFetchedMessage;
 import com.mipt.smehelper.R;
 import com.mipt.smehelper.models.Notification;
 import com.mipt.smehelper.models.User;
-import com.mipt.smehelper.network.ClientApiGet;
 import com.mipt.smehelper.network.ClientApiPost;
 import com.mipt.smehelper.network.NetworkService;
 
@@ -55,10 +54,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private Data applicationData;
 
-    interface SurveyListener {
-        void surveyDoneCallback();
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +63,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         boolean isFirstEnter = preferences.getBoolean(FIRST_APP, true);
 
         if (isFirstEnter) {
-            Log.d(TAG, "First enterence");
+            Log.d(TAG, "First entrence");
             setContentView(R.layout.activity_splash_screen);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(FIRST_APP, false);
@@ -77,18 +72,20 @@ public class SplashScreenActivity extends AppCompatActivity {
         } else {
             Log.d(TAG, "Redirect to menu");
             setContentView(R.layout.activity_splash_screen_logedin);
-            final String userName = preferences.getString(USER_NAME, null);
-            if (userName == null) {
+            String userName = preferences.getString(USER_NAME, "gh");
+            if (userName == null || userName.trim().equals("")) {
                 Log.e(TAG, "Error getting loged in user");
+                userName = "gh";
             }
 
+            final String logedInUserName = userName;
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     // send request to server
 
                     try {
-                        Response response = clientApiPost.getUser(userName).execute();
+                        Response response = clientApiPost.getUser(logedInUserName).execute();
                         User user = (User) response.body();
 
                         if (user == null) {
@@ -170,6 +167,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                     if (response.isSuccessful()) {
                         Log.d(TAG, "Auth successful");
+                        Data.getInstance().setUser(user);
                     } else {
                         Log.e(TAG, "Auth error for user " + String.valueOf(user));
                     }

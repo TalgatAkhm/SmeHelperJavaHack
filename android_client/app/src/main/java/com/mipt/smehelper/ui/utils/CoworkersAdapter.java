@@ -69,7 +69,9 @@ public class CoworkersAdapter extends RecyclerView.Adapter<CoworkersAdapter.Cowo
             name.setText(currentCoworker.getName());
             job.setText(currentCoworker.getJob());
             int number = new Random().nextInt(90);
-            Picasso.get().load(String.format("https://randomuser.me/api/portraits/men/%d.jpg", number)).into(profileImg);
+            Picasso.get().load(String.format("https://randomuser.me/api/portraits/men/%d.jpg", number))
+                    .transform(new CircleTransform())
+                    .into(profileImg);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

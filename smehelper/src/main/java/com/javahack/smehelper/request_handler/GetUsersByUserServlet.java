@@ -3,12 +3,10 @@ package com.javahack.smehelper.request_handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javahack.smehelper.dao.IJobDao;
 import com.javahack.smehelper.dao.IUserDao;
+import com.javahack.smehelper.model.JobAndDependencies;
 import com.javahack.smehelper.model.UserOrg;
-import com.javahack.smehelper.model.UserOrgAndJobs;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.HttpRequestHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -16,17 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class LoginServlet implements HttpRequestHandler{
-
-    @Resource
-    private IUserDao userDao;
+@RequestMapping("/get")
+public class GetUsersByUserServlet implements HttpRequestHandler {
 
     @Resource
     private IJobDao jobDao;
 
-    private static final Logger LOG = LoggerFactory.getLogger(TestServlet.class);
+    @Resource
+    private IUserDao userDao;
 
     @Override
     public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
@@ -39,14 +37,26 @@ public class LoginServlet implements HttpRequestHandler{
         }
 
         String name = buffer.toString();
-        LOG.info("login user: " + name);
 
-        List<UserOrg> users = userDao.getUserByName(name);
+        ObjectMapper m = new ObjectMapper();
+        UserOrg userOrg = userDao.getUserByName(name).get(0);
 
-        ObjectMapper mapper = new ObjectMapper();
-        String result = mapper.writeValueAsString(users.get(0));
+        String job = userOrg.getJob();
+        JobAndDependencies jobAndDependencies = jobDao.getByJobName(job);
 
-        LOG.info("login is successful");
+        List<Integer> deps = jobAndDependencies.getDependencies();
+        List<UserOrg> child = new ArrayList<>();
+
+        for (Integer i : deps) {
+            JobAndDependencies j = jobDao.getByAvitoId(i);
+            if (j != null){
+                // TODO: find child with those job
+                List<UserOrg> usersChild = userDao.getUsersByJob(j.getJob());
+                child.addAll(usersChild);
+            }
+        }
+
+        String result = m.writeValueAsString(child);
         httpServletResponse.getWriter().write(result);
     }
 }

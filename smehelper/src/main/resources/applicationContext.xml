@@ -72,4 +72,8 @@
     <bean name="loginServlet" class="com.javahack.smehelper.request_handler.LoginServlet" />
     <bean name="notificationsServlet" class="com.javahack.smehelper.request_handler.NotificationsServlet" />
     <bean name="notificationsLoaderServlet" class="com.javahack.smehelper.request_handler.NotificationLoaderServlet" />
+    <bean name="JADServlet" class="com.javahack.smehelper.request_handler.JobAndDepGetAllServlet" />
+    <bean name="JADLoaderServlet" class="com.javahack.smehelper.request_handler.JobAndDepLoaderServlet" />
+    <bean name="getDepsServlet" class="com.javahack.smehelper.request_handler.GetDepsByUserServlet" />
+    <bean name="getDepUsersServlet" class="com.javahack.smehelper.request_handler.GetUsersByUserServlet" />
 </beans>

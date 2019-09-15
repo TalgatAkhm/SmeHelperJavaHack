@@ -2,12 +2,7 @@ package com.javahack.smehelper.request_handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javahack.smehelper.dao.IJobDao;
-import com.javahack.smehelper.dao.IUserDao;
-import com.javahack.smehelper.model.UserOrg;
-import com.javahack.smehelper.model.UserOrgAndJobs;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.core.userdetails.User;
+import com.javahack.smehelper.model.JobAndDependencies;
 import org.springframework.web.HttpRequestHandler;
 
 import javax.annotation.Resource;
@@ -16,17 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 
-public class LoginServlet implements HttpRequestHandler{
-
-    @Resource
-    private IUserDao userDao;
+public class JobAndDepLoaderServlet implements HttpRequestHandler {
 
     @Resource
-    private IJobDao jobDao;
-
-    private static final Logger LOG = LoggerFactory.getLogger(TestServlet.class);
+    private IJobDao dao;
 
     @Override
     public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
@@ -38,15 +27,10 @@ public class LoginServlet implements HttpRequestHandler{
             buffer.append(line);
         }
 
-        String name = buffer.toString();
-        LOG.info("login user: " + name);
-
-        List<UserOrg> users = userDao.getUserByName(name);
+        String json = buffer.toString();
 
         ObjectMapper mapper = new ObjectMapper();
-        String result = mapper.writeValueAsString(users.get(0));
-
-        LOG.info("login is successful");
-        httpServletResponse.getWriter().write(result);
+        JobAndDependencies j = mapper.readValue(json, JobAndDependencies.class);
+        dao.create(j);
     }
 }

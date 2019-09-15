@@ -27,7 +27,7 @@ public class WorkerFetcher {
     private final static String TAG = "WorkerFetcher";
     private final static int READ_TIMEOUT_SEC = 30;
 
-    public static void fromAvito(int avitoId) {
+    public static void fromAvito(final int avitoId) {
         new Thread() {
             public void run() {
                 String baseURL = "https://rest-app.net/api/ads?login=mikel1998@mail.ru&token=cea83367c2231a09e8dce54b70c2dc91&category_id=" + String.valueOf(avitoId) + "&limit=10";
@@ -74,8 +74,9 @@ public class WorkerFetcher {
         }.start();
     }
 
-    // Register event
-    public static void fromUs(User user) {
+
+    // Run in new thread, register event
+    static void fromUs(final User user) {
         new Thread() {
             public void run() {
                 try {

@@ -2,28 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/work_order_item"
+        android:id="@+id/feed_item"
         android:enabled="true"
         android:icon="@drawable/notify_selector"
         android:title="Уведомления"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/chat_item"
+        android:id="@+id/coworkers_item"
         android:enabled="true"
         android:icon="@drawable/notify_selector"
         android:title="Подрядчики"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/statistics_item"
+        android:id="@+id/chat_item"
         android:enabled="true"
         android:icon="@drawable/notify_selector"
         android:title="Чат"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/sos_item"
+        android:id="@+id/doc_item"
         android:enabled="true"
         android:icon="@drawable/notify_selector"
         android:title="Документы"

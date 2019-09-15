@@ -45,16 +45,16 @@ public class SplashScreenActivity extends AppCompatActivity {
         boolean isFirstEnter = preferences.getBoolean(FIRST_APP, true);
 
 //        if (!isFirstEnter) {
-            Log.d(TAG, "First enterence");
-            setContentView(R.layout.activity_splash_screen);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(FIRST_APP, false);
-            editor.apply();
-            configurateSplashScreen();
+//            Log.d(TAG, "First enterence");
+//            setContentView(R.layout.activity_splash_screen);
+//            SharedPreferences.Editor editor = preferences.edit();
+//            editor.putBoolean(FIRST_APP, false);
+//            editor.apply();
+//            configurateSplashScreen();
 //        } else {
-//            Log.d(TAG, "Redirect to menu");
-//            Intent intent = new Intent(this, MainMenu.class);
-//            startActivity(intent);
+            Log.d(TAG, "Redirect to menu");
+            Intent intent = new Intent(this, MainMenu.class);
+            startActivity(intent);
 //        }
     }
 

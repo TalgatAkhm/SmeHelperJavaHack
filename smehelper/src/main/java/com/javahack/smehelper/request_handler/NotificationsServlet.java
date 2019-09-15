@@ -13,8 +13,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NotificationsServlet implements HttpRequestHandler{
@@ -38,18 +42,41 @@ public class NotificationsServlet implements HttpRequestHandler{
 
         LOG.info("Get notifications by date: " + dt);
 
-        DateTime barrierDateTime = DateTime.parse(dt);
+        if (dt.trim().equals("")) {
+            DateTime barrierDateTime = DateTime.parse(dt);
+        }
 
         List<Notification> notifications = dao.getAll();
         List<Notification> result = new ArrayList<>();
 
-        for(Notification n: notifications){
-            if(DateTime.parse(n.getDate()).isBefore(barrierDateTime))
-                result.add(n);
+        if (notifications == null || notifications.size() == 0) {
+            loadNotifications();
+            notifications = dao.getAll();
         }
 
+        httpServletResponse.setHeader("Content-Type", "application/json; charset=UTF-8");
+        httpServletResponse.setCharacterEncoding("UTF-8");
         ObjectMapper mapper = new ObjectMapper();
         LOG.info("Notifications returned");
-        mapper.writeValueAsString(result);
+        mapper.writeValue(httpServletResponse.getWriter(), notifications);
+    }
+
+    private void loadNotifications() {
+        File news = new File(getClass().getClassLoader().getResource("news.csv").getFile());
+        try(BufferedReader br = new BufferedReader(new FileReader(news))) {
+            for(String line; (line = br.readLine()) != null; ) {
+                Notification notification = new Notification();
+                String title = line.substring(0, line.indexOf(','));
+                String text = line.substring(line.indexOf(',')+1, line.length());
+                notification.setText(text);
+                notification.setTitle(title);
+                notification.setDate(new Date().toString());
+                notification.setNalog(false);
+                dao.create(notification);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

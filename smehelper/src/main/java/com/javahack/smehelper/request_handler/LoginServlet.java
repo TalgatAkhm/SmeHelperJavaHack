@@ -44,9 +44,12 @@ public class LoginServlet implements HttpRequestHandler{
         List<UserOrg> users = userDao.getUserByName(name);
 
         ObjectMapper mapper = new ObjectMapper();
+//        users.get(0).setJob(String.encode(users.get(0).getJob(), ""));
         String result = mapper.writeValueAsString(users.get(0));
 
         LOG.info("login is successful, its: " + users.get(0).getJob());
-        httpServletResponse.getWriter().write(result);
+        httpServletResponse.setHeader("Content-Type", "application/json; charset=UTF-8");
+        httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.getWriter().write(result/*new String(result.getBytes("ISO-8859-1"), "UTF-16")*/);
     }
 }

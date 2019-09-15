@@ -49,6 +49,8 @@ public class GetDepsByUserServlet implements HttpRequestHandler {
             sb.append(i).append(" ");
         }
         sb.append("\"}");
+        httpServletResponse.setHeader("Content-Type", "application/json; charset=UTF-8");
+        httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(sb.toString());
     }
 }

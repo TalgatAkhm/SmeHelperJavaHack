@@ -21,6 +21,8 @@ public class JobAndDepGetAllServlet implements HttpRequestHandler{
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(dao.getAll());
 
+        httpServletResponse.setHeader("Content-Type", "application/json; charset=UTF-8");
+        httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(json);
     }
 }

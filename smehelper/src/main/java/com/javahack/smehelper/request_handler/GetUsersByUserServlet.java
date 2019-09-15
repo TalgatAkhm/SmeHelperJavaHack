@@ -62,6 +62,8 @@ public class GetUsersByUserServlet implements HttpRequestHandler {
 
         String result = m.writeValueAsString(child);
         LOG.info(result);
+        httpServletResponse.setHeader("Content-Type", "application/json; charset=UTF-8");
+        httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.getWriter().write(result);
     }
 }

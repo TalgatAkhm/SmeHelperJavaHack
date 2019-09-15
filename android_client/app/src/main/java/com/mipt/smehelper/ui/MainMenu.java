@@ -64,8 +64,8 @@ public class MainMenu extends AppCompatActivity implements
         bottomNavigation.inflateMenu(MENU);
         bottomNavigation.setOnNavigationItemSelectedListener(this);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigation);
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) bottomNavigation.getLayoutParams();
-        params.setBehavior(new BottomNavigationBehaviour());
+        //CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) bottomNavigation.getLayoutParams();
+        //params.setBehavior(new BottomNavigationBehaviour());
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.mipt.smehelper.network;
 
 import android.util.Log;
 
+import com.mipt.smehelper.Data;
 import com.mipt.smehelper.EBMessages.UsersFetchedMessage;
 import com.mipt.smehelper.models.User;
 
@@ -53,7 +54,7 @@ public class WorkerFetcher {
                 user.setSmallUSN(true);
                 user.setRegDate(new DateTime().toString());
                 user.setName(object.getString("name"));
-                user.setJob(object.getString("title"));
+                user.setJob(Data.getInstance().matches.get(avitoId));
                 user.setCity(object.getString("city"));
                 user.setAmount(Math.random() * 100000);
 

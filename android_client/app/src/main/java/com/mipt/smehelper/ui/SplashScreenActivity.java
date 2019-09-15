@@ -75,7 +75,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             String userName = preferences.getString(USER_NAME, "gh");
             if (userName == null || userName.trim().equals("")) {
                 Log.e(TAG, "Error getting loged in user");
-                userName = "gh";
+                userName = "admin";
             }
 
             final String logedInUserName = userName;
@@ -205,6 +205,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         private TextInputLayout city;
         private Spinner nalog;
         private ProgressBar progressBar;
+        private Button next;
         private Button applyBtn;
 
         public SplashViewPagerAdapter(Context context) {
@@ -221,6 +222,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 layout = inflater.inflate(R.layout.splash_screen_1, container, false);
 
                 name = layout.findViewById(R.id.user_name_input_layout);
+                next = layout.findViewById(R.id.next_screen_btn);
 
             } else {
                 Log.d(TAG, "Screen 1");
@@ -238,6 +240,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 ArrayAdapter<CharSequence> nalogAdapter = ArrayAdapter.createFromResource(context, R.array.nalogs, android.R.layout.simple_spinner_item);
                 nalogAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 nalog.setAdapter(nalogAdapter);
+
 
                 applyBtn = layout.findViewById(R.id.next_btn);
                 applyBtn.setOnClickListener(new View.OnClickListener() {

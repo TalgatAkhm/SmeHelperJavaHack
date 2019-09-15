@@ -27,4 +27,7 @@ public interface ClientApiPost {
     @POST("/get_deps")
     Call<DepIds> getWorkersPairs(@Body String userName);
 
+    @POST("/doc")
+    Call<ResponseBody> getDoc(@Body String json);
+
 }

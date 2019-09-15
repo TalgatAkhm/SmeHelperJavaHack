@@ -59,6 +59,7 @@ public class WorkerFetcher {
                         user.setAmount(Math.random() * 100000);
 
                         users.add(user);
+                        Log.d(TAG, String.format("User with name %s added", user.getName()));
                     }
 
                     EventBus.getDefault().post(new UsersFetchedMessage(users));

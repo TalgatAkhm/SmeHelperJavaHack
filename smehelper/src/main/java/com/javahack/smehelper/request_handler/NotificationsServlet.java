@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javahack.smehelper.dao.INotificationDao;
 import com.javahack.smehelper.model.Notification;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.HttpRequestHandler;
@@ -42,7 +43,7 @@ public class NotificationsServlet implements HttpRequestHandler{
 
         LOG.info("Get notifications by date: " + dt);
 
-        if (dt.trim().equals("")) {
+        if (!dt.trim().equals("")) {
             DateTime barrierDateTime = DateTime.parse(dt);
         }
 
@@ -70,7 +71,7 @@ public class NotificationsServlet implements HttpRequestHandler{
                 String text = line.substring(line.indexOf(',')+1, line.length());
                 notification.setText(text);
                 notification.setTitle(title);
-                notification.setDate(new Date().toString());
+//                notification.setDate(null);
                 notification.setNalog(false);
                 dao.create(notification);
             }

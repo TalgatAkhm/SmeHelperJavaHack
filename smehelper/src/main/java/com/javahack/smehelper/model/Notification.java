@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sf.autodao.PersistentEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Notification implements PersistentEntity<Integer> {
@@ -23,10 +21,13 @@ public class Notification implements PersistentEntity<Integer> {
     private String title;
 
     @JsonProperty("text")
+    @Column
+    @Lob
     private String text;
 
-    @JsonProperty("date")
-    private String date;
+//    @JsonProperty("date")
+//    @Transient
+//    private String date;
 
     public boolean isNalog() {
         return isNalog;
@@ -40,9 +41,9 @@ public class Notification implements PersistentEntity<Integer> {
         return text;
     }
 
-    public String getDate() {
-        return date;
-    }
+//    public String getDate() {
+//        return date;
+//    }
 
     public void setNalog(Boolean nalog) {
         isNalog = nalog;
@@ -56,9 +57,9 @@ public class Notification implements PersistentEntity<Integer> {
         this.text = text;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+//    public void setDate(String date) {
+//        this.date = date;
+//    }
 
     public Integer getId() {
         return id;

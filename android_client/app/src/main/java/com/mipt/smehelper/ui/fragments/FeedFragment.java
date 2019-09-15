@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mipt.smehelper.Data;
 import com.mipt.smehelper.R;
@@ -24,7 +25,7 @@ public class FeedFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private FeedCardAdapter feedCardAdapter;
 
     private List<Notification> notifications;
-    private int notificationCounter = 3;
+    private int notificationCounter = 5;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class FeedFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         swipeRefreshLayout.setOnRefreshListener(this);
 
 
-        feedCardAdapter = new FeedCardAdapter(getActivity(), notifications.subList(0, notifications.size()-3));
+        feedCardAdapter = new FeedCardAdapter(getActivity(), notifications.subList(0, notifications.size() - notificationCounter));
         feedListView.setAdapter(feedCardAdapter);
 
         return rootView;
@@ -54,7 +55,7 @@ public class FeedFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         if (notificationCounter != 1) {
             feedCardAdapter.addNotification(notifications.get(notifications.size() - (--notificationCounter)));
         } else {
-            feedCardAdapter.addNotification(notifications.get(-1 * (--notificationCounter) % 10));
+            Toast.makeText(getActivity(), "Пока новостей нет", Toast.LENGTH_SHORT).show();
         }
         feedCardAdapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);

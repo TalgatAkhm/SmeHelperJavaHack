@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.mipt.smehelper.R;
 import com.mipt.smehelper.models.Notification;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class FeedCardAdapter extends BaseAdapter {
@@ -52,12 +54,13 @@ public class FeedCardAdapter extends BaseAdapter {
 
         title.setText(currentNotification.getTitle());
         text.setText(currentNotification.getText());
-        date.setText(currentNotification.getDate());
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm dd-MM");
+        date.setText(format.format(new Date()));
 
         return view;
     }
 
     public void addNotification(Notification notification) {
-        cardList.add(notification);
+        cardList.add(0, notification);
     }
 }

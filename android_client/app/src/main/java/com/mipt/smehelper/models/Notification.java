@@ -14,9 +14,6 @@ public class Notification {
     @JsonProperty("text")
     private String text;
 
-    @JsonProperty("date")
-    private String date;
-
     public boolean isNalog() {
         return isNalog;
     }
@@ -29,7 +26,15 @@ public class Notification {
         return text;
     }
 
-    public String getDate() {
-        return date;
+    public void setNalog(boolean nalog) {
+        isNalog = nalog;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

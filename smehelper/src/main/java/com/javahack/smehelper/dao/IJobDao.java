@@ -17,5 +17,5 @@ public interface IJobDao extends Dao<JobAndDependencies, Integer> {
     JobAndDependencies getByJobName(@Named("name") String job);
 
     @Finder(query = "from JobAndDependencies where avitoId = :aid")
-    JobAndDependencies getByAvitoId(@Named("aid")Integer avitoId);
+    List<JobAndDependencies> getByAvitoId(@Named("aid")Integer avitoId);
 }

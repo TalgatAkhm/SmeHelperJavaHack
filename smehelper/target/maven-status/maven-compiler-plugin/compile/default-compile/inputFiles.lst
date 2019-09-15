@@ -10,6 +10,7 @@
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/NotificationsServlet.java
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/dao/IJobDao.java
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/RegisterServlet.java
+/home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/Pusher.java
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/GetUsersByUserServlet.java
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/dao/INotificationDao.java
 /home/talgat/prog/SmeHelperJavaHack/smehelper/src/main/java/com/javahack/smehelper/request_handler/TransactionFilter.java

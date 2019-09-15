@@ -35,6 +35,20 @@ public class UserOrg implements PersistentEntity<Integer> {
 
     private String orgName;
 
+    public UserOrg(){
+
+    }
+
+    public UserOrg(String name, String job, Boolean isSmallUSN, Double amount, String city, String regDate, String orgName) {
+        this.name = name;
+        this.job = job;
+        this.isSmallUSN = isSmallUSN;
+        this.amount = amount;
+        this.city = city;
+        this.regDate = regDate;
+        this.orgName = orgName;
+    }
+
     public String getName() {
         return name;
     }

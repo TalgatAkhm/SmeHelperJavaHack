@@ -38,7 +38,7 @@ public class LoginServlet implements HttpRequestHandler{
             buffer.append(line);
         }
 
-        String name = buffer.toString();
+        String name = buffer.toString().replaceAll("\"", "");
         LOG.info("login user: " + name);
 
         List<UserOrg> users = userDao.getUserByName(name);
@@ -46,7 +46,7 @@ public class LoginServlet implements HttpRequestHandler{
         ObjectMapper mapper = new ObjectMapper();
         String result = mapper.writeValueAsString(users.get(0));
 
-        LOG.info("login is successful");
+        LOG.info("login is successful, its: " + users.get(0).getJob());
         httpServletResponse.getWriter().write(result);
     }
 }

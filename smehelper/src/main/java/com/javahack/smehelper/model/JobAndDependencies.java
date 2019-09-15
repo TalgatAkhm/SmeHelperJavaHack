@@ -27,6 +27,16 @@ public class JobAndDependencies implements PersistentEntity<Integer>{
     @JsonProperty("dependencies")
     private List<Integer> avitoIdDependencies;
 
+    public JobAndDependencies(){
+
+    }
+
+    public JobAndDependencies(Integer avitoId, String job, List<Integer> avitoIdDependencies) {
+        this.avitoId = avitoId;
+        this.job = job;
+        this.avitoIdDependencies = avitoIdDependencies;
+    }
+
     public Integer getId() {
         return id;
     }

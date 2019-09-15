@@ -5,6 +5,8 @@ import com.javahack.smehelper.dao.IJobDao;
 import com.javahack.smehelper.dao.IUserDao;
 import com.javahack.smehelper.model.JobAndDependencies;
 import com.javahack.smehelper.model.UserOrg;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,6 +28,8 @@ public class GetUsersByUserServlet implements HttpRequestHandler {
     @Resource
     private IUserDao userDao;
 
+    private static final Logger LOG = LoggerFactory.getLogger(TestServlet.class);
+
     @Override
     public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         StringBuilder buffer = new StringBuilder();
@@ -36,7 +40,7 @@ public class GetUsersByUserServlet implements HttpRequestHandler {
             buffer.append(line);
         }
 
-        String name = buffer.toString();
+        String name = buffer.toString().replaceAll("\"", "");
 
         ObjectMapper m = new ObjectMapper();
         UserOrg userOrg = userDao.getUserByName(name).get(0);
@@ -48,7 +52,7 @@ public class GetUsersByUserServlet implements HttpRequestHandler {
         List<UserOrg> child = new ArrayList<>();
 
         for (Integer i : deps) {
-            JobAndDependencies j = jobDao.getByAvitoId(i);
+            JobAndDependencies j = jobDao.getByAvitoId(i).get(0);
             if (j != null){
                 // TODO: find child with those job
                 List<UserOrg> usersChild = userDao.getUsersByJob(j.getJob());
@@ -57,6 +61,7 @@ public class GetUsersByUserServlet implements HttpRequestHandler {
         }
 
         String result = m.writeValueAsString(child);
+        LOG.info(result);
         httpServletResponse.getWriter().write(result);
     }
 }

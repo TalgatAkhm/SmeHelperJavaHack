@@ -39,14 +39,14 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-<!--    <servlet>
+    <servlet>
         <servlet-name>testServlet</servlet-name>
         <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>testServlet</servlet-name>
         <url-pattern>/test</url-pattern>
-    </servlet-mapping>-->
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>registerServlet</servlet-name>
@@ -82,6 +82,57 @@
     <servlet-mapping>
         <servlet-name>notificationsLoaderServlet</servlet-name>
         <url-pattern>/load_notif</url-pattern>
+    </servlet-mapping>
+
+    <!--/123456789234567890234567890/-->
+
+    <servlet>
+        <servlet-name>JADServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JADServlet</servlet-name>
+        <url-pattern>/jad</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>JADLoaderServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JADLoaderServlet</servlet-name>
+        <url-pattern>/load_jad</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>getDepsServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getDepsServlet</servlet-name>
+        <url-pattern>/get_deps</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>getDepUsersServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getDepUsersServlet</servlet-name>
+        <url-pattern>/get_dep_users</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>pusher</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pusher</servlet-name>
+        <url-pattern>/push</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -126,5 +126,13 @@
     </servlet-mapping>
 
 
+    <servlet>
+        <servlet-name>pusher</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pusher</servlet-name>
+        <url-pattern>/push</url-pattern>
+    </servlet-mapping>
 
 </web-app>

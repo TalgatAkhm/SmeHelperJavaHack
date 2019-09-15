@@ -33,7 +33,7 @@ public class GetDepsByUserServlet implements HttpRequestHandler {
             buffer.append(line);
         }
 
-        String name = buffer.toString();
+        String name = buffer.toString().replaceAll("\"", "");
 
         ObjectMapper m = new ObjectMapper();
         UserOrg userOrg = userDao.getUserByName(name).get(0);
@@ -43,12 +43,12 @@ public class GetDepsByUserServlet implements HttpRequestHandler {
 
         List<Integer> deps = jobAndDependencies.getDependencies();
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("{\"ids\":\"");
 
         for(Integer i: deps){
-            sb.append(i).append(", ");
+            sb.append(i).append(" ");
         }
-
+        sb.append("\"}");
         httpServletResponse.getWriter().write(sb.toString());
     }
 }

@@ -1,6 +1,7 @@
 package com.mipt.smehelper.network;
 
 import com.mipt.smehelper.models.Notification;
+import com.mipt.smehelper.models.DepIds;
 import com.mipt.smehelper.models.User;
 
 import java.util.List;
@@ -19,4 +20,11 @@ public interface ClientApiPost {
 
     @POST("/notifications")
     Call<List<Notification>> getNotifications();
+
+    @POST("/get_dep_users")
+    Call<List<User>> getWorkers(@Body String userName);
+
+    @POST("/get_deps")
+    Call<DepIds> getWorkersPairs(@Body String userName);
+
 }

@@ -8,22 +8,33 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.mipt.smehelper.Data;
 import com.mipt.smehelper.R;
 import com.mipt.smehelper.models.User;
+import com.mipt.smehelper.network.ClientApiPost;
+import com.mipt.smehelper.network.NetworkService;
+import com.mipt.smehelper.network.WorkerFetcher;
 import com.mipt.smehelper.ui.utils.CoworkersAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CoworkersFragment extends Fragment implements CoworkersAdapter.ClickCallback {
 
     private RecyclerView coworkersRecyclerView;
     private ProgressBar progressBar;
+
+    private static ClientApiPost clientApiPost = NetworkService.getInstance().getPostClientApi();
+
+    private final static String TAG = "CoworkersFragment";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +71,24 @@ public class CoworkersFragment extends Fragment implements CoworkersAdapter.Clic
                 currentCoworkers.add(user);
                 currentCoworkers.add(user);
                 currentCoworkers.add(user);
+
+                try {
+                    String[] ids = clientApiPost.getWorkersPairs(Data.getInstance().getUser().
+                            getName()).execute().body().getIds().split(" ");
+                    Log.d(TAG, "ids = " + Arrays.toString(ids));
+
+                    for (String id : ids) {
+                        List<User> avitoUsers = WorkerFetcher.fromAvito(Integer.valueOf(id));
+                        if (avitoUsers != null && avitoUsers.size() != 0) {
+                            currentCoworkers.addAll(avitoUsers);
+                        }
+                    }
+
+                    currentCoworkers.addAll(WorkerFetcher.fromUs(Data.getInstance().getUser()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {

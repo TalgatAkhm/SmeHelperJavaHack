@@ -6,9 +6,9 @@
     <string name="start_button">Начать</string>
     <string name="feed_toolbar_title">События</string>
     <string-array name="jobs">
-        <item>Фермер</item>
-        <item>Фрилансер</item>
-        <item>Программист</item>
+        <item>Автомобили</item>
+        <item>Запчасти и аксессуары</item>
+        <item>Грузовики и спецтехника</item>
     </string-array>
 
     <string-array name="nalogs">

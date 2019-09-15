@@ -43,7 +43,6 @@ import retrofit2.Response;
 public class SplashScreenActivity extends AppCompatActivity {
     private final static String TAG = SplashScreenActivity.class.getName();
     private static ClientApiPost clientApiPost = NetworkService.getInstance().getPostClientApi();
-    private static ClientApiGet clientApiGet = NetworkService.getInstance().getClientApi();
 
     private final static String PREFERENCES = "preferences";
     private final static String FIRST_APP = "is_first_enter";
@@ -95,6 +94,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                         if (user == null) {
                             Log.d(TAG, "Error while auth");
                         }
+
+                        Data.getInstance().setUser(user);
 
                         Response notificationResponse = clientApiPost.getNotifications().execute();
 

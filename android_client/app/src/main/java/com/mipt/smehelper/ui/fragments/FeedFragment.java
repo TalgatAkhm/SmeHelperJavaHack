@@ -10,16 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.mipt.smehelper.Data;
 import com.mipt.smehelper.R;
+import com.mipt.smehelper.models.Notification;
+import com.mipt.smehelper.ui.utils.FeedCardAdapter;
+
+import java.util.List;
 
 public class FeedFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private ListView feedListView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private FeedCardAdapter feedCardAdapter;
+
+    private List<Notification> notifications;
+    private int notificationCounter = 3;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        notifications = Data.getInstance().getNotifications();
     }
 
     @Nullable
@@ -33,11 +43,20 @@ public class FeedFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         swipeRefreshLayout.setOnRefreshListener(this);
 
 
+        feedCardAdapter = new FeedCardAdapter(getActivity(), notifications.subList(0, notifications.size()-3));
+        feedListView.setAdapter(feedCardAdapter);
+
         return rootView;
     }
 
     @Override
     public void onRefresh() {
-
+        if (notificationCounter != 1) {
+            feedCardAdapter.addNotification(notifications.get(notifications.size() - (--notificationCounter)));
+        } else {
+            feedCardAdapter.addNotification(notifications.get(-1 * (--notificationCounter) % 10));
+        }
+        feedCardAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

@@ -22,8 +22,10 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import com.mipt.smehelper.Data;
 import com.mipt.smehelper.EBMessages.UsersFetchedMessage;
 import com.mipt.smehelper.R;
+import com.mipt.smehelper.models.Notification;
 import com.mipt.smehelper.models.User;
 import com.mipt.smehelper.network.ClientApiGet;
 import com.mipt.smehelper.network.ClientApiPost;
@@ -36,7 +38,6 @@ import org.joda.time.DateTime;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -53,6 +54,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private SplashViewPagerAdapter pagerAdapter;
 
+    private Data applicationData;
+
     interface SurveyListener {
         void surveyDoneCallback();
     }
@@ -61,7 +64,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        applicationData = Data.getInstance();
         preferences = getSharedPreferences(PREFERENCES, MODE_PRIVATE);
         boolean isFirstEnter = preferences.getBoolean(FIRST_APP, true);
 
@@ -89,14 +92,26 @@ public class SplashScreenActivity extends AppCompatActivity {
                         Response response = clientApiPost.getUser(userName).execute();
                         User user = (User) response.body();
 
-                        if (user != null) {
-                            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    startActivity();
-                                }
-                            }, 1000);
+                        if (user == null) {
+                            Log.d(TAG, "Error while auth");
                         }
+
+                        Response notificationResponse = clientApiPost.getNotifications().execute();
+
+                        if (notificationResponse.isSuccessful()) {
+                            Log.d(TAG, "Get notifications successfully");
+                            List<Notification> notificationList = (List<Notification>) notificationResponse.body();
+                            applicationData.setNotifications(notificationList);
+                        } else {
+                            Log.d(TAG, "Error while getting notifications");
+                        }
+
+                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity();
+                            }
+                        }, 1000);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -154,15 +169,26 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                     if (response.isSuccessful()) {
                         Log.d(TAG, "Auth successful");
-                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivity();
-                            }
-                        }, 1000);
                     } else {
                         Log.e(TAG, "Auth error for user " + String.valueOf(user));
                     }
+
+                    Response notificationResponse = clientApiPost.getNotifications().execute();
+
+                    if (notificationResponse.isSuccessful()) {
+                        Log.d(TAG, "Get notifications successfully");
+                        List<Notification> notificationList = (List<Notification>) notificationResponse.body();
+                        applicationData.setNotifications(notificationList);
+                    } else {
+                        Log.d(TAG, "Error while getting notifications");
+                    }
+
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity();
+                        }
+                    }, 1000);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

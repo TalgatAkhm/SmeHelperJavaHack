@@ -1,5 +1,6 @@
 package com.mipt.smehelper;
 
+import com.mipt.smehelper.models.Notification;
 import com.mipt.smehelper.models.User;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public class Data {
     private User user;
     // Workers for current user, may be null
     private List<User> workers;
+
+    private List<Notification> notifications;
 
     private Data(){}
 
@@ -33,5 +36,13 @@ public class Data {
 
     public void setWorkers(List<User> workers) {
         this.workers = workers;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 }

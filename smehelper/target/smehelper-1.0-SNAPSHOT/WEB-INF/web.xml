@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>antiplagiat-web</display-name>
+
+    <!--
+        There are three means to configure Wickets configuration mode and they
+        are tested in the antiplagiatOrder given.
+
+        1) A system property: -Dwicket.configuration
+        2) servlet specific <init-param>
+        3) context specific <context-param>
+
+        The value might be either "development" (reloading when templates change) or
+        "deployment". If no configuration is found, "development" is the default. -->
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <filter>
+        <filter-name>transactionFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetBeanName</param-name>
+            <param-value>transactionFilter</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>transactionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>testServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>testServlet</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registerServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registerServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>notificationsServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>notificationsServlet</servlet-name>
+        <url-pattern>/notifications</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>notificationsLoaderServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>notificationsLoaderServlet</servlet-name>
+        <url-pattern>/load_notif</url-pattern>
+    </servlet-mapping>
+
+    <!--/123456789234567890234567890/-->
+
+    <servlet>
+        <servlet-name>JADServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JADServlet</servlet-name>
+        <url-pattern>/jad</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>JADLoaderServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JADLoaderServlet</servlet-name>
+        <url-pattern>/load_jad</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>getDepsServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getDepsServlet</servlet-name>
+        <url-pattern>/get_deps</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>getDepUsersServlet</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getDepUsersServlet</servlet-name>
+        <url-pattern>/get_dep_users</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>pusher</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pusher</servlet-name>
+        <url-pattern>/push</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>doc</servlet-name>
+        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>doc</servlet-name>
+        <url-pattern>/doc</url-pattern>
+    </servlet-mapping>
+
+</web-app>

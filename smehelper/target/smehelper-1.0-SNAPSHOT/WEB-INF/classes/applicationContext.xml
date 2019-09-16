@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dao="http://autodao.sourceforge.net/schemas/autodao-0.12"
+       xsi:schemaLocation="
+       http://autodao.sourceforge.net/schemas/autodao-0.12  http://autodao.sourceforge.net/schemas/autodao-0.12.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <context:component-scan base-package="com.javahack.smehelper" />
+
+    <dao:hibernateScan base-package="com.javahack.smehelper.dao" />
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <!--<property name="location" value="classpath:app.properties" />-->
+        <property name="locations">
+            <list>
+                <value>classpath:datasource.properties</value>
+                <value>classpath:hibernate.properties</value>
+                <value>classpath:profile.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${datasource.driverClassName}" />
+        <property name="jdbcUrl" value="${datasource.url}" />
+        <property name="user" value="${datasource.username}" />
+        <property name="password" value="${datasource.password}" />
+        <property name="initialPoolSize" value="20" />
+        <property name="maxIdleTime" value="10000" />
+        <property name="maxPoolSize" value="40" />
+    </bean>
+
+    <!--<bean name="uloginAuthentifiactionProvider" class="com.javahacky.ulogin.UloginAuthentifiactionProvider">-->
+        <!--<constructor-arg value="${ulogin.site.url}"/>-->
+    <!--</bean>-->
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan">
+            <list>
+                <value>com.javahack.smehelper.model</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.validator.apply_to_ddl">hibernate.validator.apply_to_ddl</prop>
+            </props>
+        </property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="transactionFilter"
+          class="com.javahack.smehelper.request_handler.TransactionFilter"/>
+
+    <bean name="testServlet" class="com.javahack.smehelper.request_handler.TestServlet" />
+    <bean name="registerServlet" class="com.javahack.smehelper.request_handler.RegisterServlet" />
+    <bean name="loginServlet" class="com.javahack.smehelper.request_handler.LoginServlet" />
+    <bean name="notificationsServlet" class="com.javahack.smehelper.request_handler.NotificationsServlet" />
+    <bean name="notificationsLoaderServlet" class="com.javahack.smehelper.request_handler.NotificationLoaderServlet" />
+    <bean name="JADServlet" class="com.javahack.smehelper.request_handler.JobAndDepGetAllServlet" />
+    <bean name="JADLoaderServlet" class="com.javahack.smehelper.request_handler.JobAndDepLoaderServlet" />
+    <bean name="getDepsServlet" class="com.javahack.smehelper.request_handler.GetDepsByUserServlet" />
+    <bean name="getDepUsersServlet" class="com.javahack.smehelper.request_handler.GetUsersByUserServlet" />
+    <bean name="pusher" class="com.javahack.smehelper.request_handler.Pusher" />
+    <bean name="doc" class="com.javahack.smehelper.request_handler.DocumentCreatorServlet" />
+</beans>
